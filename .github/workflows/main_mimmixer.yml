@@ -18,13 +18,13 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: Mix/myExpressApp
+        working-directory: myExpressApp
 
       - name: Upload app artifact
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: Mix/myExpressApp
+          path: myExpressApp
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,3 +41,4 @@ jobs:
           app-name: mimmixer
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
+
