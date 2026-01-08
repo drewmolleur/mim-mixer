@@ -55,5 +55,6 @@ jobs:
         with:
           app-name: 'mimmixer'
           slot-name: 'Production'
-          package: .
+          package: Mix/myExpressApp
+
           
