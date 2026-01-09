@@ -1,3 +1,22 @@
+/* === HARD RESET: prevent white-screen === */
+html, body {
+  background: radial-gradient(
+    circle at top,
+    #0e0e0e 0%,
+    #050505 60%,
+    #000 100%
+  ) !important;
+  color: #e6e6e6;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#app {
+  background: transparent !important;
+  min-height: 100vh;
+}
+
 /* =========================================================
    DAW layout tweaks: faders LEFT, regions RIGHT
    ========================================================= */
