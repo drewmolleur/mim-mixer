@@ -96,3 +96,30 @@ html, body {
 #masterTools .master {
   box-shadow: none !important;
 }
+
+/* =========================================================
+   COMPAT LAYOUT: if you’re still on the MT5 DOM (#scroll)
+   Put faders LEFT, regions RIGHT
+   ========================================================= */
+
+#scroll {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* left column = controls/faders table */
+#trackControl {
+  grid-column: 1;
+}
+
+/* right column = canvases/regions */
+#canvass {
+  grid-column: 2;
+}
+
+/* make canvases fill available width */
+#canvass canvas {
+  width: 100% !important;
+}
