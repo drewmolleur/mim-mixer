@@ -123,3 +123,12 @@ html, body {
 #canvass canvas {
   width: 100% !important;
 }
+
+/* =========================================================
+   FALLBACK: force ALL knob canvases to grey
+   ========================================================= */
+
+canvas.knob,
+#masterTools canvas {
+  filter: grayscale(1) saturate(0) brightness(1.05) contrast(1.15);
+}
