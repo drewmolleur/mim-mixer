@@ -1,5 +1,3 @@
-/* ===== MiM / Vice-dhrk inspired glass + particles styling ===== */
-
 :root {
   --bg: #06070c;
   --panel: rgba(255, 255, 255, 0.06);
@@ -29,11 +27,17 @@ body {
   margin: 0;
   color: var(--text);
   background: radial-gradient(1200px 800px at 20% 10%, rgba(124, 92, 255, 0.18), transparent 55%),
-    radial-gradient(1000px 700px at 80% 20%, rgba(46, 229, 157, 0.10), transparent 60%),
+    radial-gradient(1000px 700px at 80% 20%, rgba(46, 229, 157, 0.1), transparent 60%),
     radial-gradient(900px 650px at 55% 95%, rgba(255, 204, 102, 0.08), transparent 60%),
     var(--bg);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   overflow-x: hidden;
+}
+
+/* Keep particles from stealing clicks */
+#particles-js,
+#bg-vignette {
+  pointer-events: none;
 }
 
 /* Particles layer */
@@ -43,12 +47,11 @@ body {
   z-index: 0;
 }
 
-/* Vignette overlay so the edges feel “Vice dhrk” */
+/* Vignette overlay */
 #bg-vignette {
   position: fixed;
   inset: 0;
   z-index: 1;
-  pointer-events: none;
   background: radial-gradient(circle at 50% 30%, transparent 0%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0.65) 100%);
 }
 
@@ -58,7 +61,7 @@ body {
   z-index: 2;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 22px 16px 40px;
+  padding: 22px 16px 46px;
 }
 
 /* Header */
@@ -129,11 +132,8 @@ body {
   background: var(--good);
 }
 
-/* Console panel (tabs + content) */
-#console {
-  position: sticky;
-  top: 12px;
-  z-index: 3;
+/* Glass cards */
+.mim-card {
   border-radius: var(--radius);
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
@@ -141,9 +141,13 @@ body {
   overflow: hidden;
 }
 
-/* Tabs */
+/* Console tabs */
+#console {
+  margin-bottom: 14px;
+}
+
 #console .nav-tabs {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.18);
   margin-bottom: 0;
   padding: 0 8px;
@@ -172,7 +176,6 @@ body {
   border-bottom-color: transparent !important;
 }
 
-/* Tab content */
 #console .tab-content {
   padding: 14px 16px;
   color: rgba(255, 255, 255, 0.85);
@@ -187,14 +190,13 @@ body {
   width: 100%;
   height: 140px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.35);
 }
 
-/* Help content */
 .helpBlock {
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   padding: 12px;
 }
@@ -203,7 +205,7 @@ body {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.35px;
-  color: rgba(255, 255, 255, 0.80);
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 8px;
 }
 
@@ -217,20 +219,224 @@ body {
   margin: 6px 0;
 }
 
-/* Make default bootstrap bits behave in dark mode */
-a,
-a:hover,
-a:focus {
-  color: rgba(255, 255, 255, 0.86);
+/* Layout */
+#layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
-/* Responsive spacing */
-@media (max-width: 680px) {
+@media (min-width: 980px) {
+  #layout {
+    grid-template-columns: 0.44fr 0.56fr;
+    align-items: start;
+  }
+}
+
+/* Master tools */
+.mim-masterCard {
+  position: sticky;
+  top: 12px;
+  z-index: 3;
+}
+
+.mim-masterInner {
+  padding: 14px 16px 16px;
+}
+
+.mim-sectionTitle {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.35px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mim-sectionTitleSm {
+  font-size: 12px;
+  letter-spacing: 0.35px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.mim-muted {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.mim-masterTitleRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.mim-masterVolume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Buttons */
+.mim-btn,
+.mim-iconBtn {
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 14px !important;
+  padding: 10px 12px !important;
+  transition: transform 0.06s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.mim-btn:hover,
+.mim-iconBtn:hover {
+  background: rgba(255, 255, 255, 0.09) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.mim-btn:active,
+.mim-iconBtn:active {
+  transform: translateY(1px);
+}
+
+.mim-btnTiny {
+  font-size: 12px !important;
+  padding: 8px 10px !important;
+}
+
+.mim-btnRec {
+  border-color: rgba(255, 77, 109, 0.35) !important;
+  background: linear-gradient(180deg, rgba(255, 77, 109, 0.28), rgba(255, 77, 109, 0.12)) !important;
+}
+
+/* Transport rows */
+.mim-transport {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.mim-loopRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* Song selector area */
+.mim-songRow {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.mim-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.mim-songs select,
+#songs select {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.86);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.mim-footnote {
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Main panel */
+.mim-mainCard .mim-mainInner {
+  padding: 14px 16px 16px;
+}
+
+.mim-trackHeader,
+.mim-canvasHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Tracks table: keep JS compatibility */
+.mim-tracksWrap {
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+#tracks {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin: 0;
+}
+
+/* Make any injected rows look like track strips */
+#tracks tr {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#tracks td,
+#tracks th {
+  padding: 10px 10px;
+  vertical-align: middle;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Inputs/sliders inside track table */
+#tracks input[type="range"] {
+  accent-color: var(--accent);
+}
+#tracks input,
+#tracks button,
+#tracks select {
+  border-radius: 12px !important;
+}
+
+/* Canvas area */
+.mim-canvass {
+  margin-top: 14px;
+}
+
+.mim-canvasStage {
+  position: relative;
+  height: 420px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+#frontCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .mim-masterCard {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 560px) {
   .mim-header {
     flex-direction: column;
     align-items: flex-start;
-  }
-  #console {
-    top: 10px;
   }
 }
