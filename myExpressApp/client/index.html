@@ -38,8 +38,6 @@
   <body onload="init();">
     <!-- Background particles canvas -->
     <div id="particles-js" aria-hidden="true"></div>
-
-    <!-- Optional: subtle vignette overlay -->
     <div id="bg-vignette" aria-hidden="true"></div>
 
     <div id="app">
@@ -54,18 +52,18 @@
 
         <div class="mim-badges">
           <div class="mim-pill"><span class="mim-dot good"></span> Audio Ready</div>
-          <div class="mim-pill"><span class="mim-dot"></span> Central US</div>
+          <div class="mim-pill"><span class="mim-dot"></span> Vice dhrk vibe</div>
         </div>
       </header>
 
-      <div id="console">
+      <!-- Console tabs (kept) -->
+      <div id="console" class="mim-card">
         <ul class="nav nav-tabs">
           <li><a id="consoleTab" href="#home" data-toggle="tab">Console</a></li>
           <li><a id="waveTab" href="#profile" data-toggle="tab">Wave</a></li>
           <li><a class="active" href="#help" data-toggle="tab">Help</a></li>
         </ul>
 
-        <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane fade in" id="home">
             <div id="messages">Please choose a song!</div>
@@ -79,19 +77,190 @@
             <div class="helpBlock">
               <div class="helpTitle">Quick tips</div>
               <ul class="helpList">
-                <li>Pick a song, then use the faders/knobs to shape the mix.</li>
-                <li>Use Solo/Mute to isolate parts while you dial it in.</li>
-                <li>Headphones recommended for best stereo image.</li>
+                <li>Choose a song, then use faders/knobs to shape the mix.</li>
+                <li>Use Mute/Solo to isolate parts while you dial it in.</li>
+                <li>Best with headphones.</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Everything else in your original UI stays the same -->
-      <!-- If your existing mixer UI is below, keep it. -->
-      <!-- (If you want, paste the rest of your file and I’ll style those exact elements too.) -->
+      <!-- Main layout: master tools + track area -->
+      <section id="layout">
+        <div id="masterTools" class="mim-card mim-masterCard">
+          <div class="mim-masterInner">
+            <div class="mim-masterTitleRow">
+              <h2 class="mim-sectionTitle">Matter In Motion Multi-Track</h2>
 
+              <span id="volume" class="mim-masterVolume">
+                <button
+                  id="bsound"
+                  onclick="masterMuteUnmute(this);"
+                  type="button"
+                  class="btn btn-default btn-lg master mim-iconBtn"
+                  title="Mute / Unmute master"
+                >
+                  <span class="glyphicon glyphicon-volume-up"></span>
+                </button>
+
+                <input
+                  id="masterVolume"
+                  class="knob masterVolume"
+                  data-width="96"
+                  data-height="96"
+                  data-displayInput="false"
+                  value="100"
+                />
+              </span>
+            </div>
+
+            <div class="mim-transport">
+              <button
+                id="bplay"
+                type="button"
+                class="btn btn-default btn-lg mim-btn"
+                onclick="playAllTracks(0);"
+                disabled
+                title="Play"
+              >
+                <span class="glyphicon glyphicon-play"></span>
+              </button>
+
+              <button
+                id="bpause"
+                onclick="pauseAllTracks();"
+                disabled
+                type="button"
+                class="btn btn-default btn-lg mim-btn"
+                title="Pause"
+              >
+                <span class="glyphicon glyphicon-pause"></span>
+              </button>
+
+              <button
+                id="bstop"
+                onclick="stopAllTracks();"
+                type="button"
+                class="btn btn-default btn-lg mim-btn"
+                disabled
+                title="Stop"
+              >
+                <span class="glyphicon glyphicon-stop"></span>
+              </button>
+
+              <button
+                id="brecord"
+                onclick="addNewTrackForRecord();"
+                type="button"
+                class="btn btn-default btn-lg mim-btn mim-btnRec"
+                disabled
+                title="Record track"
+              >
+                <span class="glyphicon glyphicon-record"></span>
+              </button>
+
+              <button
+                id="brecordMix"
+                onclick="toggleRecordMix();"
+                type="button"
+                class="btn btn-default btn-lg mim-btn mim-btnTiny"
+                disabled
+                title="Record mix"
+              >
+                Record mix
+              </button>
+            </div>
+
+            <div id="loopBox" class="mim-loopRow">
+              <button
+                id="loopStart"
+                onclick="setLoopStart();"
+                type="button"
+                class="btn btn-default btn-lg mim-btn mim-btnTiny"
+                disabled
+              >
+                Start loop
+              </button>
+
+              <button
+                id="loopEnd"
+                onclick="setLoopEnd();"
+                type="button"
+                class="btn btn-default btn-lg mim-btn mim-btnTiny"
+                disabled
+              >
+                End loop
+              </button>
+
+              <button
+                id="loopReset"
+                onclick="resetSelection();"
+                type="button"
+                class="btn btn-default btn-lg mim-btn mim-btnTiny"
+                disabled
+              >
+                Reset loop
+              </button>
+
+              <button
+                onclick="loopOnOff();"
+                id="loopOnOff"
+                type="button"
+                class="btn btn-default btn-lg mim-btn"
+                disabled
+                title="Loop on/off"
+              >
+                <span class="glyphicon glyphicon-repeat"></span>
+              </button>
+            </div>
+
+            <div class="mim-songRow">
+              <div class="mim-label">Song</div>
+              <div id="songs" class="styled-select mim-songs"></div>
+            </div>
+
+            <div class="mim-footnote">
+              Tip: if controls feel small on mobile, rotate landscape.
+            </div>
+          </div>
+        </div>
+
+        <div id="scroll" class="mim-card mim-mainCard">
+          <div class="mim-mainInner">
+            <div id="trackControl" class="mim-trackControl">
+              <div class="mim-trackHeader">
+                <div class="mim-sectionTitleSm">Tracks</div>
+                <div class="mim-muted">Mute / Solo / Volume / FX</div>
+              </div>
+
+              <div class="mim-tracksWrap">
+                <table id="tracks"></table>
+              </div>
+            </div>
+
+            <div id="canvass" class="mim-canvass">
+              <div class="mim-canvasHeader">
+                <div class="mim-sectionTitleSm">Timeline</div>
+                <div class="mim-muted">Drag loop points & markers</div>
+              </div>
+
+              <div class="mim-canvasStage">
+                <canvas
+                  id="myCanvas"
+                  width="602"
+                  height="400"
+                  style="position: absolute; left: 0; top: 0; z-index: 0"
+                ></canvas>
+                <canvas
+                  id="frontCanvas"
+                  style="position: absolute; left: 0; top: 0; z-index: 1"
+                ></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </body>
 </html>
