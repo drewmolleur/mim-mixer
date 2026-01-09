@@ -1,217 +1,236 @@
+/* ===== MiM / Vice-dhrk inspired glass + particles styling ===== */
+
+:root {
+  --bg: #06070c;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel2: rgba(255, 255, 255, 0.08);
+  --stroke: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.65);
+  --muted2: rgba(255, 255, 255, 0.45);
+  --accent: #7c5cff;
+  --good: #2ee59d;
+  --warn: #ffcc66;
+  --bad: #ff4d6d;
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-    margin: 0 3%;
-    background: black;
+  height: 100%;
 }
 
+body {
+  margin: 0;
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(124, 92, 255, 0.18), transparent 55%),
+    radial-gradient(1000px 700px at 80% 20%, rgba(46, 229, 157, 0.10), transparent 60%),
+    radial-gradient(900px 650px at 55% 95%, rgba(255, 204, 102, 0.08), transparent 60%),
+    var(--bg);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  overflow-x: hidden;
+}
+
+/* Particles layer */
+#particles-js {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Vignette overlay so the edges feel “Vice dhrk” */
+#bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 30%, transparent 0%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+/* App wrapper */
 #app {
-    width: 980px;
-    margin: auto;
-    background: #EEE;
+  position: relative;
+  z-index: 2;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 16px 40px;
 }
 
+/* Header */
+.mim-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.mim-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mim-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 55%),
+    linear-gradient(135deg, rgba(124, 92, 255, 0.95), rgba(46, 229, 157, 0.85));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 55px rgba(124, 92, 255, 0.22);
+}
+
+.mim-title .mim-h1 {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+  line-height: 1.1;
+}
+
+.mim-title .mim-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.mim-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mim-pill {
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.mim-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--muted2);
+}
+.mim-dot.good {
+  background: var(--good);
+}
+
+/* Console panel (tabs + content) */
 #console {
-    position: fixed;
-    top: 0;
-    height: 200px;
-    width: 302px;
-    margin-left: 680px;
-    text-align: center;
-    color: white;
-    background: black;
-    border: 1px solid grey;
-    z-index: 10;
+  position: sticky;
+  top: 12px;
+  z-index: 3;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
-#waveCanvas {
-    height: 150px;
-    white-space: nowrap;
-    overflow: auto;
-    overflow-x: hidden;
+/* Tabs */
+#console .nav-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.18);
+  margin-bottom: 0;
+  padding: 0 8px;
+}
+
+#console .nav-tabs > li > a {
+  border: none !important;
+  border-radius: 14px 14px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  padding: 12px 14px;
+  margin: 8px 6px 0;
+}
+
+#console .nav-tabs > li > a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+#console .nav-tabs > li.active > a,
+#console .nav-tabs > li.active > a:hover,
+#console .nav-tabs > li.active > a:focus,
+#console .nav-tabs > .active > a {
+  background: rgba(124, 92, 255, 0.18) !important;
+  color: rgba(255, 255, 255, 0.94) !important;
+  border: 1px solid rgba(124, 92, 255, 0.28) !important;
+  border-bottom-color: transparent !important;
+}
+
+/* Tab content */
+#console .tab-content {
+  padding: 14px 16px;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 #messages {
-    height: 160px;
-    white-space: nowrap;
-    overflow: auto;
-    overflow-x: hidden;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
 }
 
-#masterTools {
-    position: fixed;
-    top: 0;
-    height: 200px;
-    width: 680px;
-    text-align: center;
-    background: #EEE;
-    border: 1px solid grey;
-    z-index: 10;
+#waveCanvas {
+  width: 100%;
+  height: 140px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.35);
 }
 
-#volume {
-    height: 42px;
+/* Help content */
+.helpBlock {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px;
 }
 
-#songs {
-    text-align: center;
+.helpTitle {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.35px;
+  color: rgba(255, 255, 255, 0.80);
+  margin-bottom: 8px;
 }
 
-#trackControl {
-    float: left;
-    width: 378px;
-    overflow: hidden;
+.helpList {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.helpList li {
+  margin: 6px 0;
 }
 
-#tracks {
-    width: 100%;
-    margin-top: -1px;
+/* Make default bootstrap bits behave in dark mode */
+a,
+a:hover,
+a:focus {
+  color: rgba(255, 255, 255, 0.86);
 }
 
-.trackBox {
-    vertical-align: middle;
-    border: 1px solid grey;
-}
-
-#canvass {
-    margin-left: 380px;
-}
-
-#myCanvas {
-    background: black;
-}
-
-#scroll {
-    position: absolute;
-    top: 200px;
-    width: 980px;
-    background: #EEE;
-}
-
-.styled-select select {
-    background: #ddd;
-    background: transparent;
-    width: 240px;
-    padding: 5px;
-    font-size: 16px;
-    line-height: 1;
-    border: 0;
-    border-radius: 0;
-    height: 34px;
-    -webkit-appearance: none;
-}
-
-.styled-select {
-    width: 240px;
-    height: 34px;
-    overflow: hidden;
-    background: url(../img/down_arrow_select.jpg) no-repeat right #ddd;
-    border: 1px solid #ccc;
-}
-
-button {
-    height: 42px;
-    width: 42px;
-}
-
-#sound {
-    position: absolute;
-    margin-left: 28px;
-    margin-top: 28px;
-}
-
-.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
-    color: #000;
-    cursor: default;
-    background: #EEE;
-    border: 1px solid #000;
-    border-bottom-color: transparent;
-}
-
-.nav {
-    margin-bottom: 0;
-}
-
-a[data-toggle=tab] {
-    color: #EEE;
-    text-decoration: none;
-}
-
-.pisteProgress {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=-1);
-    margin-left: -30px;
-    height: 20px;
-    margin-top: 22px;
-}
-
-.knobDiv {
-    float: right;
-}
-
-.activated {
-    color: green;
-    border: 3px solid green;
-}
-
-.volumeSlider {
-    margin-left: 20px;
-    width: 170px;
-}
-
-/***** for sliders *****/
-
-body {
-    margin-left: 3%;
-}
-
-.touch {
-    width: 40%;
-}
-
-.custom {
-    width: 60%;
-    -webkit-appearance: none !important;
-    height: 15px;
-    border-radius: 8px;
-    -webkit-appearance: none !important;
-    border-radius: 5px;
-    -webkit-box-shadow: inset 0 0 5px #333;
-    background-image: linear-gradient(to right, lightGreen, blue 100%, orange);
-    transition: background 450ms;
-}
-
-/* Change the Slider Button Color Here */
-
-.custom::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
-    background: #AAA;
-    background-image: linear-gradient(to bottom, #EEE, #AAA);
-    border: 1px solid #999;
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-}
-
-.custom::-moz-range-thumb {
-    background: #AAA;
-    background-image: linear-gradient(to bottom, #EEE, #AAA);
-    border: 1px solid #999;
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-}
-
-.custom::-webkit-slider-thumb:before {
-    background: yellow;
-}
-
-/* ONLY applicable if you want the bubble above the slider */
-
-output {
-    width: 100px;
-    height: 40px;
-    font-size: 2em;
+/* Responsive spacing */
+@media (max-width: 680px) {
+  .mim-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #console {
+    top: 10px;
+  }
 }
