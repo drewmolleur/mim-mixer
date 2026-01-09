@@ -1,0 +1,129 @@
+/* ======================================================
+   MT5 Greyscale Theme Override
+   (NO layout changes, NO JS assumptions)
+   ====================================================== */
+
+html, body {
+  background: radial-gradient(
+    circle at top,
+    #0d0d0d 0%,
+    #070707 55%,
+    #000 100%
+  );
+  color: #e5e5e5;
+}
+
+/* Keep app above particles */
+#app {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===============================
+   Panels / Containers
+   =============================== */
+
+#console,
+#masterTools,
+#trackControl,
+#canvass,
+#scroll {
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 12px;
+}
+
+/* ===============================
+   Tabs
+   =============================== */
+
+.nav-tabs > li > a {
+  color: rgba(255,255,255,.55) !important;
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:hover {
+  color: rgba(255,255,255,.95) !important;
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgba(255,255,255,.22) !important;
+}
+
+/* ===============================
+   Buttons (mute / solo / transport)
+   =============================== */
+
+button,
+.btn {
+  background: rgba(255,255,255,.06) !important;
+  color: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  border-radius: 10px !important;
+}
+
+button:hover,
+.btn:hover {
+  background: rgba(255,255,255,.10) !important;
+  border-color: rgba(255,255,255,.30) !important;
+}
+
+/* ===============================
+   Sliders (track volumes)
+   =============================== */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: rgba(255,255,255,.20);
+  border-radius: 999px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 14px rgba(255,255,255,.45);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 14px rgba(255,255,255,.45);
+}
+
+/* ===============================
+   Knobs (master volume)
+   =============================== */
+
+/* jquery.knob draws a canvas after the input */
+canvas.knob,
+#masterTools canvas {
+  filter: grayscale(1) brightness(1.05) contrast(1.1);
+  opacity: .95;
+}
+
+/* ===============================
+   Canvases (waveforms & regions)
+   =============================== */
+
+/* Subtle desaturation only — DO NOT nuke contrast */
+#waveCanvas,
+#myCanvas,
+#frontCanvas {
+  filter: grayscale(.85) saturate(.15);
+}
+
+/* ===============================
+   Text / Messages
+   =============================== */
+
+#messages {
+  color: rgba(255,255,255,.70);
+}
